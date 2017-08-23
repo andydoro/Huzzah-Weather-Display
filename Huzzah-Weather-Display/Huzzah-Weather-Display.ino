@@ -55,6 +55,34 @@ SSD1306 display(I2C, SDA, SCL);
 WeatherClient weather;
 Ticker ticker;
 
+void drawFrame1(int x, int y) {
+  display.setFontScale2x2(false);
+  display.drawString(65 + x, 8 + y, "Now");
+  display.drawXbm(x + 7, y + 7, 50, 50, getIconFromString(weather.getCurrentIcon()));
+  display.setFontScale2x2(true);
+  display.drawString(64 + x, 20 + y, String(weather.getCurrentTemp()) + "F");
+  display.setFontScale2x2(false);
+  display.drawString(64 + x, 40 + y, String(weather.getCurrentSummary()));
+}
+
+void drawFrame2(int x, int y) {
+  display.setFontScale2x2(false);
+  display.drawString(65 + x, 0 + y, "Today");
+  display.drawXbm(x, y, 60, 60, xbmtemp);
+  display.setFontScale2x2(true);
+  display.drawString(64 + x, 14 + y, String(weather.getCurrentTemp()) + "F");
+  display.setFontScale2x2(false);
+  display.drawString(66 + x, 40 + y, String(weather.getMinTempToday()) + "F/" + String(weather.getMaxTempToday()) + "F");
+}
+
+void drawFrame3(int x, int y) {
+  display.drawXbm(x + 7, y + 7, 50, 50, getIconFromString(weather.getIconTomorrow()));
+  display.setFontScale2x2(false);
+  display.drawString(65 + x, 7 + y, "Tomorrow");
+  display.setFontScale2x2(true);
+  display.drawString(64 + x, 20 + y, String(weather.getMaxTempTomorrow()) + "F");
+}
+
 // this array keeps function pointers to all frames
 // frames are the single views that slide from right to left
 void (*frameCallbacks[3])(int x, int y) = {drawFrame1, drawFrame2, drawFrame3};
@@ -177,34 +205,6 @@ const char* getIconFromString(String icon) {
     return partly_cloudy_night_bits;
   }
   return cloudy_bits;
-}
-
-void drawFrame1(int x, int y) {
-  display.setFontScale2x2(false);
-  display.drawString(65 + x, 8 + y, "Now");
-  display.drawXbm(x + 7, y + 7, 50, 50, getIconFromString(weather.getCurrentIcon()));
-  display.setFontScale2x2(true);
-  display.drawString(64 + x, 20 + y, String(weather.getCurrentTemp()) + "F");
-  display.setFontScale2x2(false);
-  display.drawString(64 + x, 40 + y, String(weather.getCurrentSummary()));
-}
-
-void drawFrame2(int x, int y) {
-  display.setFontScale2x2(false);
-  display.drawString(65 + x, 0 + y, "Today");
-  display.drawXbm(x, y, 60, 60, xbmtemp);
-  display.setFontScale2x2(true);
-  display.drawString(64 + x, 14 + y, String(weather.getCurrentTemp()) + "F");
-  display.setFontScale2x2(false);
-  display.drawString(66 + x, 40 + y, String(weather.getMinTempToday()) + "F/" + String(weather.getMaxTempToday()) + "F");
-}
-
-void drawFrame3(int x, int y) {
-  display.drawXbm(x + 7, y + 7, 50, 50, getIconFromString(weather.getIconTomorrow()));
-  display.setFontScale2x2(false);
-  display.drawString(65 + x, 7 + y, "Tomorrow");
-  display.setFontScale2x2(true);
-  display.drawString(64 + x, 20 + y, String(weather.getMaxTempTomorrow()) + "F");
 }
 
 void drawSpinner(int count, int active) {
