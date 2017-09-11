@@ -9,6 +9,7 @@ The weather icons are from http://www.alessioatzeni.com/meteocons/ Alessio Attze
  
  
 Hardware:
+-------
 
 - Huzzah ESP8266 Breakout https://www.adafruit.com/product/2471
 - Monochrome 1.3" 128x64 OLED graphic display https://www.adafruit.com/products/938
@@ -16,6 +17,8 @@ Hardware:
  
  
 Acknowledgements:
-  - Thanks Dano for lasercut enclosure! https://github.com/danowall
+-------
+
+- Thanks Dano for lasercut enclosure! https://github.com/danowall
  
 
